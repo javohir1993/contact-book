@@ -23,17 +23,61 @@ var createElement = function (element, elementClass, text) {
   return newElement;
 };
 
+var createResult = function () {
+
+  contactsArray.forEach(function (contact, index) {
+
+    var elItemsFragment = document.createDocumentFragment();
+
+    var newContact = createElement('li');
+    newContact.setAttribute('class', 'list-group-item contact-item mb-2');
+
+    var newName = createElement('h3');
+    newName.setAttribute('class', 'h5 text-truncate');
+    newName.textContent = contact.name;
+
+    var newRela = createElement('p');
+    newRela.setAttribute('class', 'small mb-1');
+    newRela.textContent = contact.rela;
+
+    var newPhone = createElement('a');
+    newPhone.textContent = contact.phone;
+    newPhone.setAttribute('href', `tel:${contact.phone}`);
+
+    var newDeleteButton = createElement('button');
+    newDeleteButton.type = 'button';
+    newDeleteButton.textContent = 'Delete';
+    // newObject.dataset.dataId =
+    newDeleteButton.dataset.id = index;
+    newDeleteButton.setAttribute('class', 'delete-button btn btn-sm btn-danger');
+
+    newContact.appendChild(newName);
+    newContact.appendChild(newRela);
+    newContact.appendChild(newPhone);
+    newContact.appendChild(newDeleteButton);
+    elItemsFragment.appendChild(newContact);
+
+    elContactsList.appendChild(elItemsFragment);
+
+    elNameInput.value = '';
+    elRelation.value = '';
+    elPhoneNumber.value = '';
+
+  });
+};
+
 
 var contactsArray = [];
 var relationArray = [];
 
 var elForm = document.querySelector('.js-contact-form')
+var elContactsList = document.querySelector('.js-contacts')
+
 if (elForm) {
-  var elNameInput = document.querySelector('.js-contact-form__name-input')
-  var elRelation = document.querySelector('.js-contact-form__relationship-input')
-  var elDatalist = document.querySelector('#relationships-list')
-  var elPhoneNumber = document.querySelector('.js-contact-form__phone-input')
-  var elContactsList = document.querySelector('.js-contacts')
+  var elNameInput = elForm.querySelector('.js-contact-form__name-input')
+  var elRelation = elForm.querySelector('.js-contact-form__relationship-input')
+  var elDatalist = elForm.querySelector('#relationships-list')
+  var elPhoneNumber = elForm.querySelector('.js-contact-form__phone-input')
 }
 
 elForm.addEventListener('submit', function (evt) {
@@ -61,6 +105,7 @@ elForm.addEventListener('submit', function (evt) {
   for(var i = 0; i < contactsArray.length; i++){
     if (contactsArray[i].phone === newObject.phone) {
       elPhoneNumber.classList.add('is-invalid');
+      elPhoneNumber.focus();
       return;
     }
   };
@@ -78,45 +123,7 @@ elForm.addEventListener('submit', function (evt) {
     elDatalist.appendChild(newOption);
   }
 
-  contactsArray.forEach(function (contact, index) {
-
-    var elItemsFragment = document.createDocumentFragment();
-
-    var newContact = createElement('li');
-    newContact.setAttribute('class', 'list-group-item contact-item mb-2');
-
-    var newName = createElement('h3');
-    newName.setAttribute('class', 'h5 text-truncate');
-    newName.textContent = contact.name;
-
-    var newRela = createElement('p');
-    newRela.setAttribute('class', 'small mb-1');
-    newRela.textContent = contact.rela;
-
-    var newPhone = createElement('a');
-    newPhone.textContent = contact.phone;
-    newPhone.setAttribute('href', `tel:${contact.phone}`);
-
-    var newDeleteButton = createElement('button');
-    newDeleteButton.type = 'button';
-    newDeleteButton.textContent = 'Delete';
-    // newObject.dataset.dataId =
-    newDeleteButton.dataset.id = index;
-    newDeleteButton.setAttribute('class', 'delete-button btn btn-sm btn-danger');
-
-    newContact.appendChild(newName);
-    newContact.appendChild(newRela);
-    newContact.appendChild(newPhone);
-    newContact.appendChild(newDeleteButton);
-    elItemsFragment.appendChild(newContact);
-
-    elContactsList.appendChild(elItemsFragment);
-
-    elNameInput.value = '';
-    elRelation.value = '';
-    elPhoneNumber.value = '';
-  });
-
+  createResult();
 
 });
 
@@ -128,43 +135,6 @@ elContactsList.addEventListener('click', function (evt) {
 
   elContactsList.innerHTML = '';
 
-  contactsArray.forEach(function (contact, index) {
-
-    var elItemsFragment = document.createDocumentFragment();
-
-    var newContact = createElement('li');
-    newContact.setAttribute('class', 'list-group-item contact-item mb-2');
-
-    var newName = createElement('h3');
-    newName.setAttribute('class', 'h5 text-truncate');
-    newName.textContent = contact.name;
-
-    var newRela = createElement('p');
-    newRela.setAttribute('class', 'small mb-1');
-    newRela.textContent = contact.rela;
-
-    var newPhone = createElement('a');
-    newPhone.textContent = contact.phone;
-    newPhone.setAttribute('href', `tel:${contact.phone}`);
-
-    var newDeleteButton = createElement('button');
-    newDeleteButton.type = 'button';
-    newDeleteButton.textContent = 'Delete';
-    // newObject.dataset.dataId =
-    newDeleteButton.dataset.id = index;
-    newDeleteButton.setAttribute('class', 'delete-button btn btn-sm btn-danger');
-
-    newContact.appendChild(newName);
-    newContact.appendChild(newRela);
-    newContact.appendChild(newPhone);
-    newContact.appendChild(newDeleteButton);
-    elItemsFragment.appendChild(newContact);
-
-    elContactsList.appendChild(elItemsFragment);
-
-    elNameInput.value = '';
-    elRelation.value = '';
-    elPhoneNumber.value = '';
-  });
+  createResult();
 
 });
