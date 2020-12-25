@@ -72,7 +72,7 @@ elForm.addEventListener('submit', function (evt) {
   contactsArray.forEach(function (contact) {
 
     var newContact = createElement('li');
-    newContact.setAttribute('class', 'list-group-item');
+    newContact.setAttribute('class', 'list-group-item contact-item mb-2');
 
     var newName = createElement('h3');
     newName.setAttribute('class', 'h5 text-truncate');
@@ -86,9 +86,15 @@ elForm.addEventListener('submit', function (evt) {
     newPhone.textContent = contact.phone;
     newPhone.setAttribute('href', `tel:${contact.phone}`);
 
+    var newDeleteButton = createElement('button');
+    newDeleteButton.type = 'button';
+    newDeleteButton.textContent = 'Delete';
+    newDeleteButton.setAttribute('class', 'delete-button btn btn-sm btn-danger');
+
     newContact.appendChild(newName);
     newContact.appendChild(newRela);
     newContact.appendChild(newPhone);
+    newContact.appendChild(newDeleteButton);
 
     elContactsList.appendChild(newContact);
 
