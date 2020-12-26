@@ -30,18 +30,19 @@ var createResult = function () {
     var elItemsFragment = document.createDocumentFragment();
 
     var newContact = createElement('li');
-    newContact.setAttribute('class', 'list-group-item contact-item mb-2');
+    newContact.setAttribute('class', 'list-group-item contact-item mb-2 js-contact');
 
     var newName = createElement('h3');
-    newName.setAttribute('class', 'h5 text-truncate');
+    newName.setAttribute('class', 'h5 text-truncate js-contact__name');
     newName.textContent = contact.name;
 
     var newRela = createElement('p');
-    newRela.setAttribute('class', 'small mb-1');
+    newRela.setAttribute('class', 'small mb-1 js-contact__relationship');
     newRela.textContent = contact.rela;
 
     var newPhone = createElement('a');
     newPhone.textContent = contact.phone;
+    newPhone.setAttribute('class', 'js-contact__phone');
     newPhone.setAttribute('href', `tel:${contact.phone}`);
 
     var newDeleteButton = createElement('button');
@@ -49,7 +50,7 @@ var createResult = function () {
     newDeleteButton.textContent = 'Delete';
     // newObject.dataset.dataId =
     newDeleteButton.dataset.id = index;
-    newDeleteButton.setAttribute('class', 'delete-button btn btn-sm btn-danger');
+    newDeleteButton.setAttribute('class', 'delete-button btn btn-sm btn-danger js-delete-button');
 
     newContact.appendChild(newName);
     newContact.appendChild(newRela);
